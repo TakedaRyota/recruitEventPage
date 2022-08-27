@@ -1,0 +1,15 @@
+<h1>Hello, Events!</h1>
+<ul>
+  <% @events.each do |event| %>
+    <li>
+      <%= event.title %>
+    </li>
+  <% end %>
+</ul>
+<ul>
+  <% @users.each do |user| %>
+    <li>
+      <%= user.email %>
+    </li>
+  <% end %>
+</ul>
