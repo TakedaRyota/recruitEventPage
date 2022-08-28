@@ -1,15 +1,60 @@
-<h2>一覧</h2>
-<ul>
-  <% @events.each do |event| %>
-    <li>
-      <%= event.title %>
-    </li>
-  <% end %>
-</ul>
-<ul>
-  <% @users.each do |user| %>
-    <li>
-      <%= user.email %>
-    </li>
-  <% end %>
-</ul>
+<header>
+  <label><%= current_user.name %>さん</label>
+  <nav class="navbar navbar-expand-lg">
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/">募集一覧</a>
+      </li>
+      <% if is_superuser? %>
+        <li class="nav-item">
+          <a class="nav-link" href="/users">ユーザ設定</a>
+        </li>
+      <% end %>
+      <li class="nav-item">
+        <%= link_to "ログアウト", login_path, method: :delete %>
+      </li>
+    </ul>
+  </nav>
+</header>
+<div class="hamburger-menu" id="menu01">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+
+<div id="event-list">
+  <h2>イベント一覧</h2>
+  <ul>
+    <% @events.each do |event| %>
+      <li class="m-1">
+        <table class="table m-0">
+          <tr>
+            <th colspan="2" class="py-0"><%= event.date %></th>
+          </tr>
+          <tr>
+            <th class="py-0">title</th>
+            <td class="py-0"><%= event.title %></td>
+          </tr>
+          <tr>
+            <th class="py-0">place</th>
+            <td class="py-0"><%= event.place %></td>
+          </tr>
+          <tr>
+            <th class="py-0">勤務予定時間</th>
+            <td class="py-0"><%= event.working_time %></td>
+          </tr>
+          <tr>
+            <th class="py-0">募集人数</th>
+            <td class="py-0"><%= event.member_num %>名</td>
+          </tr>
+          <tr>
+            <th class="py-0">現在人数</th>
+            <td class="py-0"><%= event.current_num %>名/<%= event.member_num %>名</td>
+          </tr>
+        </table>
+      </li>
+    <% end %>
+  </ul>
+</div>
+
+

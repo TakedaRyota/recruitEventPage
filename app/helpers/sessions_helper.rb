@@ -22,6 +22,11 @@ module SessionsHelper
     !current_user.nil?
   end
 
+  # ログインしているユーザが管理者権限があればtrueを返す
+  def is_superuser?
+    current_user.is_superuser
+  end
+
   # 現在のユーザーをログアウトする
   def log_out
     session.delete(:user_id)

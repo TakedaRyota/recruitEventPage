@@ -1,0 +1,71 @@
+<header>
+  <label><%= current_user.name %>さん</label>
+  <nav class="navbar navbar-expand-lg">
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/">募集一覧</a>
+      </li>
+      <% if is_superuser? %>
+        <li class="nav-item">
+          <a class="nav-link" href="/users">ユーザ設定</a>
+        </li>
+      <% end %>
+      <li class="nav-item">
+        <%= link_to "ログアウト", login_path, method: :delete %>
+      </li>
+    </ul>
+  </nav>
+</header>
+<div class="hamburger-menu" id="menu01">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+<h2>ユーザ管理</h2>
+<% if current_user.is_superuser %>
+  <h3>ユーザ一覧</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ユーザ名</th>
+        <th>メール</th>
+        <th>権限</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr class="<%if user.is_superuser %>bg-primary<% end %>">
+          <td><%= user.name %></td>
+          <td><%= user.email %></td>
+          <td>
+            <%if user.is_superuser %>
+            管理者
+            <% else %>
+            一般
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <h3>ユーザ登録</h3>
+  <form>
+    <div class="form-group">
+      <label for="createUserName">ユーザ名</label>
+      <input id="createUserName" class="form-control" name="mst_user[name]" type="text" required>
+    </div>
+    <div class="form-group">
+      <label for="createUserEmail">メールアドレス</label>
+      <input id="createUserEmail" class="form-control" name="mst_user[email]" type="email" required>
+    </div>
+    <div class="form-group">
+      <label for="createUserPassword">パスワード</label>
+      <input id="createUserPassword" class="form-control" name="mst_user[password]" type="password" required>
+    </div>
+    <button class="btn btn-success" type="submit">登録する</button>
+  </form>
+
+<% else %>
+<p>権限がありません。</p>
+<% end %>
