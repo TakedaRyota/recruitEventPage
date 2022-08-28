@@ -1,27 +1,24 @@
-<header>
-  <label><%= current_user.name %>さん</label>
-  <nav class="navbar navbar-expand-lg">
-    <ul class="navbar-nav ms-auto">
+
+<nav class="navbar navbar-expand-lg bg-info">
+  <h3 class="ps-2">ユーザ管理</h3>
+  <ul class="nav ms-auto">
+    <li class="nav-item">
+      <label class="py-2"><%= current_user.name %>さん</label>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/">募集一覧</a>
+    </li>
+    <% if is_superuser? %>
       <li class="nav-item">
-        <a class="nav-link" href="/">募集一覧</a>
+        <a class="nav-link" href="/users">ユーザ設定</a>
       </li>
-      <% if is_superuser? %>
-        <li class="nav-item">
-          <a class="nav-link" href="/users">ユーザ設定</a>
-        </li>
-      <% end %>
-      <li class="nav-item">
-        <%= link_to "ログアウト", login_path, method: :delete %>
-      </li>
-    </ul>
-  </nav>
-</header>
-<div class="hamburger-menu" id="menu01">
-  <span></span>
-  <span></span>
-  <span></span>
-</div>
-<h2>ユーザ管理</h2>
+    <% end %>
+    <li class="nav-item">
+      <a class="nav-link" data-method="delete" href="/login">ログアウト</a>
+    </li>
+  </ul>
+</nav>
+
 <% if current_user.is_superuser %>
   <h3>ユーザ一覧</h3>
   <table class="table">
@@ -50,7 +47,7 @@
   </table>
 
   <h3>ユーザ登録</h3>
-  <form>
+  <form class="p-2">
     <div class="form-group">
       <label for="createUserName">ユーザ名</label>
       <input id="createUserName" class="form-control" name="mst_user[name]" type="text" required>
@@ -63,7 +60,7 @@
       <label for="createUserPassword">パスワード</label>
       <input id="createUserPassword" class="form-control" name="mst_user[password]" type="password" required>
     </div>
-    <button class="btn btn-success" type="submit">登録する</button>
+    <button class="btn btn-success m-2" type="submit" data-method="post">登録する</button>
   </form>
 
 <% else %>

@@ -2,6 +2,9 @@ class UsersController < ApplicationController
 
   def index
     @users = MstUser.all
+  end
+
+  def create
     @user = MstUser.new(
       name: params[:createUserName], 
       email: params[:createUserEmail], 

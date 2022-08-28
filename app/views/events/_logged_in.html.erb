@@ -1,60 +1,59 @@
-<header>
-  <label><%= current_user.name %>さん</label>
-  <nav class="navbar navbar-expand-lg">
-    <ul class="navbar-nav ms-auto">
+
+  
+  
+<nav class="navbar navbar-expand-lg bg-info">
+  <h3 class="ps-2">募集一覧</h3>
+  <ul class="nav ms-auto">
+    <li class="nav-item">
+      <label class="py-2"><%= current_user.name %>さん</label>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/">募集一覧</a>
+    </li>
+    <% if is_superuser? %>
       <li class="nav-item">
-        <a class="nav-link" href="/">募集一覧</a>
+        <a class="nav-link" href="/users">ユーザ設定</a>
       </li>
-      <% if is_superuser? %>
-        <li class="nav-item">
-          <a class="nav-link" href="/users">ユーザ設定</a>
-        </li>
-      <% end %>
-      <li class="nav-item">
-        <%= link_to "ログアウト", login_path, method: :delete %>
-      </li>
-    </ul>
-  </nav>
-</header>
-<div class="hamburger-menu" id="menu01">
-  <span></span>
-  <span></span>
-  <span></span>
-</div>
+    <% end %>
+    <li class="nav-item">
+      <a class="nav-link" data-method="delete" href="/login">ログアウト</a>
+    </li>
+  </ul>
+</nav>
 
 <div id="event-list">
-  <h2>イベント一覧</h2>
-  <ul>
-    <% @events.each do |event| %>
-      <li class="m-1">
+  
+  <% @events.each do |event| %>
+    <% if event.date >= Date.today %>
+      <div class="m-2 rounded border border-2">
         <table class="table m-0">
           <tr>
             <th colspan="2" class="py-0"><%= event.date %></th>
           </tr>
           <tr>
-            <th class="py-0">title</th>
+            <th class="py-0 col-3">title</th>
             <td class="py-0"><%= event.title %></td>
           </tr>
           <tr>
-            <th class="py-0">place</th>
+            <th class="py-0 col-3">place</th>
             <td class="py-0"><%= event.place %></td>
           </tr>
           <tr>
-            <th class="py-0">勤務予定時間</th>
+            <th class="py-0 col-3">勤務予定時間</th>
             <td class="py-0"><%= event.working_time %></td>
           </tr>
           <tr>
-            <th class="py-0">募集人数</th>
+            <th class="py-0 col-3">募集人数</th>
             <td class="py-0"><%= event.member_num %>名</td>
           </tr>
           <tr>
-            <th class="py-0">現在人数</th>
+            <th class="py-0 col-3">現在人数</th>
             <td class="py-0"><%= event.current_num %>名/<%= event.member_num %>名</td>
           </tr>
         </table>
-      </li>
+      </div>
     <% end %>
-  </ul>
+  <% end %>
 </div>
 
 
