@@ -1,0 +1,9 @@
+.login-input > input {
+    width: 50%;
+}
+@media (max-width: 1000px) {
+    .login-input > input {
+        width: 100%;
+    }
+    
+}

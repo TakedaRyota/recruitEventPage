@@ -1,0 +1,95 @@
+
+  
+  
+<nav class="navbar navbar-expand-lg bg-info">
+  <h3 class="ps-2">募集一覧</h3>
+  <ul class="nav ms-auto">
+    <li class="nav-item">
+      <label class="py-2"><%= current_user.name %>さん</label>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/">募集一覧</a>
+    </li>
+    <% if is_superuser? %>
+      <li class="nav-item">
+        <a class="nav-link" href="/users">ユーザ設定</a>
+      </li>
+    <% end %>
+    <li class="nav-item">
+      <a class="nav-link" data-method="delete" href="/login">ログアウト</a>
+    </li>
+  </ul>
+</nav>
+
+<div class="m-3 card">
+  <div class="card-header fw-bold p-2">
+    お知らせ
+  </div>
+  <div class="card-body p-1 fs-6">
+    応募やお問い合わせは武田のLINE（@dreamaron5）または、tkdryt05@gmail.comにてお願いします。
+  </div>
+</div>
+
+<div id="event-list">
+  <% @events.each do |event| %>
+    <% if event.date >= Date.today %>
+      <div class="m-2 rounded border border-2">
+        <table class="table m-0 bg-light">
+          <tr>
+            <th colspan="2" class="py-0"><%= event.date %></th>
+          </tr>
+          <tr>
+            <th class="py-0 col-4">title</th>
+            <td class="py-0"><%= event.title %></td>
+          </tr>
+          <tr>
+            <th class="py-0 col-4">place</th>
+            <td class="py-0"><%= event.place %></td>
+          </tr>
+          <tr>
+            <th class="py-0 col-4">勤務予定時間</th>
+            <td class="py-0"><%= event.working_time %></td>
+          </tr>
+          <tr>
+            <th class="py-0 col-4">募集人数</th>
+            <td class="py-0"><%= event.member_num %>名</td>
+          </tr>
+          <tr>
+            <th class="py-0 col-4">現在人数</th>
+            <td class="py-0"><%= event.current_num %>名/<%= event.member_num %>名</td>
+          </tr>
+        </table>
+      </div>
+    <% elsif event.date < Date.today && is_superuser? %>
+      <div class="m-2 rounded border border-2">
+        <table class="table m-0 bg-secondary">
+          <tr>
+            <th colspan="2" class="py-0"><%= event.date %></th>
+          </tr>
+          <tr>
+            <th class="py-0 col-4">title</th>
+            <td class="py-0"><%= event.title %></td>
+          </tr>
+          <tr>
+            <th class="py-0 col-4">place</th>
+            <td class="py-0"><%= event.place %></td>
+          </tr>
+          <tr>
+            <th class="py-0 col-4">勤務予定時間</th>
+            <td class="py-0"><%= event.working_time %></td>
+          </tr>
+          <tr>
+            <th class="py-0 col-4">募集人数</th>
+            <td class="py-0"><%= event.member_num %>名</td>
+          </tr>
+          <tr>
+            <th class="py-0 col-4">現在人数</th>
+            <td class="py-0"><%= event.current_num %>名/<%= event.member_num %>名</td>
+          </tr>
+        </table>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+

@@ -1,0 +1,26 @@
+
+
+<div class="container text-center">
+  <h3 class="text-center">- ログイン -</h3>
+  <%= form_for(:session, url: login_path) do |f| %>
+  <div class="mb-2 login-row">
+    <div class="m-0">
+      <%= f.label :email %>
+    </div>
+    <div class="login-input">
+      <%= f.email_field :email %>
+    </div>
+  </div>
+  <div class="login-row">
+    <div class="m-0">
+      <%= f.label :password %>
+    </div>
+    <div class="login-input">
+      <%= f.password_field :password %>
+    </div>
+  </div>
+  <div class="btn m-2">
+    <%= f.submit "ログイン" %>
+  </div>
+  <% end %>
+</div>
